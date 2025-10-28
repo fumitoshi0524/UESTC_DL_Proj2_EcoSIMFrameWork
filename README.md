@@ -96,7 +96,7 @@ for step in range(100):
 价格保护政策成本高于收益，应考虑直接补贴
 
 ## 依赖
-
+```
 - PyTorch 2.0+
 - NumPy 1.20+
 - Matplotlib 3.5+
