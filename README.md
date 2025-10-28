@@ -1,5 +1,6 @@
 # Multi-Agent Game Theory Research Framework
 
+UESTC深度学习课程结课项目
 多智能体博弈论研究框架。支持任意数量和类型的智能体、自定义奖励函数和市场机制。
 
 ## 快速开始
