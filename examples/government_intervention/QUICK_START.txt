@@ -1,0 +1,78 @@
+GOVERNMENT INTERVENTION EXPERIMENT - QUICK START
+
+Project Structure:
+- framework/: Reusable multi-agent game theory research framework
+  - core/: Core environment and learning modules
+  - utils/: Visualization and utilities
+  
+- examples/: Specific problem implementations
+  - government_intervention/: Government intervention impact study
+    - scenario.py: Game environment definition and reward functions
+    - run_experiment.py: Experiment orchestration script
+    - results/: Output directory for results and visualizations
+
+Running the Experiment:
+1. Make sure all dependencies are installed:
+   pip install torch numpy matplotlib
+
+2. Run the experiment:
+   python examples/government_intervention/run_experiment.py
+   
+3. Generate visualizations:
+   python framework/utils/visualization.py
+
+   Or within Python:
+   from framework.utils import ExperimentVisualizer, load_results_json
+   results = load_results_json('examples/government_intervention/results/experiment_results.json')
+   viz = ExperimentVisualizer(results)
+   viz.generate_all_plots()
+
+Expected Output:
+- experiment_results.json: Raw results with aggregated metrics for each intervention level
+- Plots:
+  - farmer_reward_comparison.png
+  - consumer_reward_comparison.png
+  - government_reward_comparison.png
+  - all_agents_comparison.png
+  - market_price_evolution.png
+  - convergence_comparison.png
+
+Framework Architecture:
+- GameEnvironment: Generic multi-agent environment
+  - Supports any number of agent types
+  - Pluggable reward functions
+  - Configurable market clearing mechanisms
+  
+- ExperimentRunner: Generic experiment orchestration
+  - Runs episodes with custom policy functions
+  - Collects and aggregates data
+  
+- DataAggregator: Processes raw episode data into metrics
+  - Average rewards and standard deviations
+  - Convergence analysis (last 20 episodes)
+  - Market metrics
+
+Creating New Experiments:
+1. Define agent specifications (observation/action spaces, rewards)
+2. Define market clearing function
+3. Create environment with framework.core.GameEnvironment
+4. Use ExperimentRunner to execute and DataAggregator to analyze
+
+Example:
+  from framework.core import AgentSpec, MarketSpec, GameEnvironment
+  
+  my_agent_spec = AgentSpec(
+      name='agent_type',
+      num_agents=10,
+      obs_space=(4,),
+      action_space=(10, 1),
+      reward_fn=my_reward_function,
+  )
+  
+  market_spec = MarketSpec(clearing_fn=my_clearing_function)
+  
+  env = GameEnvironment(
+      agents_specs={'agents': my_agent_spec},
+      market_spec=market_spec,
+      time_steps=100,
+  )
